@@ -24,7 +24,7 @@ public class HeroInputReader : MonoBehaviour
 
     private void OnHorisontalMovement(InputAction.CallbackContext context)
     {
-        var direction = context.ReadValue<float>();
+        var direction = context.ReadValue<Vector2>();
         _hero.SetDirection(direction);
     }
 

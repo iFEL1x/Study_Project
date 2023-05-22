@@ -7,12 +7,12 @@
             "actions": [
                 {
                     "name": "HorisontalMovement",
-                    "type": "Button",
+                    "type": "Value",
                     "id": "9cebd0f4-bba8-4922-bd2b-a754bad920b7",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 },
                 {
                     "name": "SaySomething",
@@ -28,7 +28,7 @@
                 {
                     "name": "Keyboard",
                     "id": "30afe21f-f091-4e6a-9edd-35432bc7003b",
-                    "path": "1DAxis",
+                    "path": "2DVector",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -37,7 +37,29 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "negative",
+                    "name": "up",
+                    "id": "ee7709c0-7587-4f1e-b1e5-81bc3d082dbd",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "HorisontalMovement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "509580e0-ae0e-46be-bb4c-179b1311f766",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "HorisontalMovement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
                     "id": "f761f5da-df33-43b0-b45b-4c89c7ea8deb",
                     "path": "<Keyboard>/a",
                     "interactions": "",
@@ -48,7 +70,7 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "positive",
+                    "name": "right",
                     "id": "1c43c641-82d4-482d-94cf-70c047854f67",
                     "path": "<Keyboard>/d",
                     "interactions": "",
