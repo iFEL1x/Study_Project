@@ -41,7 +41,7 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Creatures
+  - name: DecorBack
     uniqueID: 1597158979
     locked: 0
   - name: Level
