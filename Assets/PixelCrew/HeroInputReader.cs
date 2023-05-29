@@ -3,6 +3,7 @@ using UnityEngine.InputSystem;
 
 namespace PixelCrew
 {
+    [RequireComponent(typeof(Rigidbody2D))]
     public class HeroInputReader : MonoBehaviour
     {
         [SerializeField] private Hero _hero;
