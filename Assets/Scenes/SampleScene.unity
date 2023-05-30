@@ -2351,7 +2351,7 @@ MonoBehaviour:
   m_Follow: {fileID: 1812361840}
   m_Lens:
     FieldOfView: 60
-    OrthographicSize: 5
+    OrthographicSize: 3
     NearClipPlane: 0.3
     FarClipPlane: 50
     Dutch: 0
@@ -2604,7 +2604,7 @@ Camera:
   far clip plane: 50
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 3
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -3370,6 +3370,7 @@ GameObject:
   - component: {fileID: 1812361841}
   - component: {fileID: 1812361843}
   - component: {fileID: 1812361844}
+  - component: {fileID: 1812361845}
   m_Layer: 0
   m_Name: Hero
   m_TagString: Player
@@ -3469,8 +3470,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b12d85fc795ee045b6d13024cba16b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 6
-  _jumpSpeed: 32
+  _speed: 5
+  _jumpSpeed: 12
   _groundLayer:
     serializedVersion: 2
     m_Bits: 128
@@ -3511,8 +3512,28 @@ Rigidbody2D:
   m_Material: {fileID: 6200000, guid: e600b252821ed29498e1d2d7dcf6d823, type: 2}
   m_Interpolate: 1
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
+--- !u!95 &1812361845
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1812361837}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f4fa17bd61326f645b0dd5d08c1827df, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &1830041041
 PrefabInstance:
   m_ObjectHideFlags: 0

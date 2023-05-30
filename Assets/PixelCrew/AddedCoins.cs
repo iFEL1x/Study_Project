@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace PixelCrew.Components
 {
-    public class AddedObjectComponent : MonoBehaviour
+    public class AddedCoins : MonoBehaviour
     {
         [SerializeField] private int _countSilverToGold;
         private static int _coinsSilver;
