@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -16,18 +17,23 @@ namespace PixelCrew
         private float _secondsPerFrame;
         private int _currentSprtireIndex;
         private float _nextFrameTime;
-
-        private bool _isPlaying = true;
+        
         private void Start()
         {
             _renderer = GetComponent<SpriteRenderer>();
+
+        }
+
+        void OnEnable()
+        {
             _secondsPerFrame = 1f / _frameRate;
             _nextFrameTime = Time.time + _secondsPerFrame;
+            _currentSprtireIndex = 0;
         }
 
         private void Update()
         {
-            if (!_isPlaying || _nextFrameTime > Time.time) return;
+            if (_nextFrameTime > Time.time) return;
 
             if(_currentSprtireIndex >= _sprites.Length)
             {
@@ -37,7 +43,7 @@ namespace PixelCrew
                 }
                 else
                 {
-                    _isPlaying = false;
+                    enabled = false;
                     _onComplete?.Invoke();
                     return;
                 }

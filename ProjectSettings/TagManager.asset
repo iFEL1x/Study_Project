@@ -47,3 +47,6 @@ TagManager:
   - name: Level
     uniqueID: 1850422667
     locked: 0
+  - name: Hero
+    uniqueID: 1691110529
+    locked: 0
