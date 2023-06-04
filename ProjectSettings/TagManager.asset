@@ -41,11 +41,14 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: DecorBack
+  - name: Decor
     uniqueID: 1597158979
     locked: 0
   - name: Level
     uniqueID: 1850422667
+    locked: 0
+  - name: Props
+    uniqueID: 2940925505
     locked: 0
   - name: Hero
     uniqueID: 1691110529

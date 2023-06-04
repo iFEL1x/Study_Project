@@ -51,11 +51,11 @@ public class CheatController : MonoBehaviour
             _inputTime -= Time.deltaTime;
         }
     }
-}
-
-[Serializable]
-public class CheatItem
-{
-    public string Name;
-    public UnityEvent Action;
+    
+    [Serializable]
+    public class CheatItem
+    {
+        public string Name;
+        public UnityEvent Action;
+    }
 }
