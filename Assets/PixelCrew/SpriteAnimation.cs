@@ -21,7 +21,6 @@ namespace PixelCrew
         private void Start()
         {
             _renderer = GetComponent<SpriteRenderer>();
-
         }
 
         void OnEnable()

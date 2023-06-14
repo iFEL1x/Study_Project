@@ -8,6 +8,7 @@ namespace PixelCrew
     {
         [SerializeField] private float _speed;
         [SerializeField] private float _jumpSpeed;
+        [SerializeField] private float _damageJumpSpeed;
         [SerializeField] private LayerMask _groundLayer;
     
         [SerializeField] private float _groundCheckRadius;
@@ -23,6 +24,7 @@ namespace PixelCrew
         private static readonly int IsGroundKey = Animator.StringToHash("is-ground");
         private static readonly int IsRunning = Animator.StringToHash("is-running");
         private static readonly int VerticalVelocity = Animator.StringToHash("vertical-velocity");
+        private static readonly int Hit = Animator.StringToHash("hit");
     
         private void Awake()
         {
@@ -46,9 +48,7 @@ namespace PixelCrew
             var xVelocity = _direction.x * _speed;
             var yVelocity = CalculateYVelocity();
             _rigidbody.velocity = new Vector2(xVelocity, yVelocity);
-            
-            
-            
+
             _animator.SetBool(IsGroundKey, _isGrounded);
             _animator.SetBool(IsRunning, _direction.x != 0);
             _animator.SetFloat(VerticalVelocity, _rigidbody.velocity.y);
@@ -116,6 +116,12 @@ namespace PixelCrew
         public void SaySomething()
         {
             Debug.Log("Something!");
+        }
+
+        public void TakeDamage()
+        {
+            _animator.SetTrigger(Hit);
+            _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, _damageJumpSpeed);
         }
     }
 }

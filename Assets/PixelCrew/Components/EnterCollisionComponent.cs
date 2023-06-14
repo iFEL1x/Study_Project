@@ -4,26 +4,22 @@ using UnityEngine.Events;
 
 namespace PixelCrew.Components
 {
-
-    namespace PixelCrew.Components
+    public class EnterCollisionComponent : MonoBehaviour
     {
-        public class EnterCollisionComponent : MonoBehaviour
-        {
-            [SerializeField] private string _tag;
-            [SerializeField] private EnterEvent _action;
+        [SerializeField] private string _tag;
+        [SerializeField] private EnterEvent _action;
             
-            private void OnCollisionEnter2D(Collision2D other)
+        private void OnCollisionEnter2D(Collision2D other)
+        {
+            if (other.gameObject.CompareTag(_tag))
             {
-                if (other.gameObject.CompareTag(_tag))
-                {
-                    _action?.Invoke(other.gameObject);
-                }
+                _action?.Invoke(other.gameObject);
             }
         }
+    }
         
-        [Serializable]
-        public class EnterEvent : UnityEvent<GameObject>
-        {
-        }
+    [Serializable]
+    public class EnterEvent : UnityEvent<GameObject>
+    {
     }
 }
