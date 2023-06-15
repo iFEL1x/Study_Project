@@ -1,4 +1,4 @@
-using System;
+using PixelCrew.Components;
 using UnityEngine;
 
 namespace PixelCrew
@@ -10,10 +10,14 @@ namespace PixelCrew
         [SerializeField] private float _jumpSpeed;
         [SerializeField] private float _damageJumpSpeed;
         [SerializeField] private LayerMask _groundLayer;
+        [SerializeField] private float _interactionRadius;
+        [SerializeField] private LayerMask _interactionLayer;
     
         [SerializeField] private float _groundCheckRadius;
         [SerializeField] private Vector3 _groundCheckPositionDelta;
         
+        
+        private Collider2D[] _interactionResult = new Collider2D[1];
         private Rigidbody2D _rigidbody;
         private Vector2 _direction;
         private Animator _animator;
@@ -103,7 +107,8 @@ namespace PixelCrew
     
         private bool IsGrounded()
         {
-            var hit = Physics2D.CircleCast(transform.position + _groundCheckPositionDelta, _groundCheckRadius, Vector2.down, 0, _groundLayer);
+            var hit = Physics2D.CircleCast(transform.position + _groundCheckPositionDelta, 
+                _groundCheckRadius, Vector2.down, 0, _groundLayer);
             return hit.collider != null;
         }
     
@@ -123,6 +128,23 @@ namespace PixelCrew
             _animator.SetTrigger(Hit);
             _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, _damageJumpSpeed);
         }
+
+        public void Interact()
+        {
+            var size = Physics2D.OverlapCircleNonAlloc(
+                transform.position, 
+                _interactionRadius, 
+                _interactionResult, 
+                _interactionLayer);
+
+            for (int i = 0; i < size; i++)
+            {
+                var interactable = _interactionResult[i].GetComponent<InteractableComponent>();
+                if (interactable != null)
+                {
+                    interactable.Interact();
+                }
+            }
+        }
     }
 }
-

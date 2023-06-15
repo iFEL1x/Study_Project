@@ -15,6 +15,7 @@ namespace PixelCrew
             _inputAtcions.Hero.HorisontalMovement.performed += OnHorisontalMovement;
             _inputAtcions.Hero.HorisontalMovement.canceled += OnHorisontalMovement;
             _inputAtcions.Hero.SaySomething.performed += OnSaySomething;
+            _inputAtcions.Hero.Interact.canceled += OnInteract;
         }
 
         private void OnEnable()
@@ -31,6 +32,14 @@ namespace PixelCrew
         private void OnSaySomething(InputAction.CallbackContext context)
         {
             _hero.SaySomething();
+        }
+
+        public void OnInteract(InputAction.CallbackContext context)
+        {
+            if (context.canceled)
+            {
+                _hero.Interact();
+            }
         }
     }
 }

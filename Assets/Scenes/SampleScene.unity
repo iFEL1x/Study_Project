@@ -3680,7 +3680,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.4566603, y: -0.6299995, z: -10}
+  m_LocalPosition: {x: 3.45115, y: -0.6299995, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -3773,6 +3773,17 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &696031165 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4170041010426618439, guid: 8a90a0f769e4c6d498cc36f9bd0057d0, type: 3}
+  m_PrefabInstance: {fileID: 1175005185}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 655cd6ba38b44d26b8a9e733b74ab965, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &754397240
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4037,7 +4048,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6550801231863080771, guid: 8a90a0f769e4c6d498cc36f9bd0057d0, type: 3}
       propertyPath: m_RootOrder
-      value: 14
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 6550801231863080771, guid: 8a90a0f769e4c6d498cc36f9bd0057d0, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4081,7 +4092,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6550801231863080773, guid: 8a90a0f769e4c6d498cc36f9bd0057d0, type: 3}
       propertyPath: m_Name
-      value: Door (1)
+      value: Door
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8a90a0f769e4c6d498cc36f9bd0057d0, type: 3}
@@ -4247,6 +4258,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1358757017 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4170041010426618439, guid: 8a90a0f769e4c6d498cc36f9bd0057d0, type: 3}
+  m_PrefabInstance: {fileID: 6550801232413243982}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 655cd6ba38b44d26b8a9e733b74ab965, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1406085963
 GameObject:
   m_ObjectHideFlags: 0
@@ -4285,6 +4307,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5699233541516706025, guid: db22b17ded2320441bf29f634c840fe5, type: 3}
+      propertyPath: _action.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1358757017}
+    - target: {fileID: 5699233541516706025, guid: db22b17ded2320441bf29f634c840fe5, type: 3}
+      propertyPath: _action.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: Switch
+      objectReference: {fileID: 0}
     - target: {fileID: 8287775252487221448, guid: db22b17ded2320441bf29f634c840fe5, type: 3}
       propertyPath: m_RootOrder
       value: 16
@@ -6111,6 +6141,10 @@ MonoBehaviour:
   _groundLayer:
     serializedVersion: 2
     m_Bits: 128
+  _interactionRadius: 1
+  _interactionLayer:
+    serializedVersion: 2
+    m_Bits: 256
   _groundCheckRadius: 0.3
   _groundCheckPositionDelta: {x: 0, y: -0.08, z: 0}
 --- !u!70 &1812361843
@@ -6581,7 +6615,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6550801231863080771, guid: 8a90a0f769e4c6d498cc36f9bd0057d0, type: 3}
       propertyPath: m_RootOrder
-      value: 13
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 6550801231863080771, guid: 8a90a0f769e4c6d498cc36f9bd0057d0, type: 3}
       propertyPath: m_LocalPosition.x
@@ -6625,7 +6659,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6550801231863080773, guid: 8a90a0f769e4c6d498cc36f9bd0057d0, type: 3}
       propertyPath: m_Name
-      value: Door
+      value: Door (1)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8a90a0f769e4c6d498cc36f9bd0057d0, type: 3}
@@ -6693,6 +6727,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5699233541516706025, guid: db22b17ded2320441bf29f634c840fe5, type: 3}
+      propertyPath: _action.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 696031165}
     - target: {fileID: 8287775252487221448, guid: db22b17ded2320441bf29f634c840fe5, type: 3}
       propertyPath: m_RootOrder
       value: 15
