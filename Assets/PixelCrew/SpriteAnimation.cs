@@ -8,6 +8,7 @@ namespace PixelCrew
     [RequireComponent(typeof(SpriteRenderer))]
     public class SpriteAnimation : MonoBehaviour
     {
+        [Range(1, 60)]
         [SerializeField] private int _frameRate;
         [SerializeField] private bool _loop;
         [SerializeField] private Sprite[] _sprites;
