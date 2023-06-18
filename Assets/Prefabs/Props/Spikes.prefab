@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8780215556965203805}
   - component: {fileID: 4675354117231306268}
   - component: {fileID: 2479298316388955018}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Spikes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -140,13 +140,11 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.36517096, y: 0.02322793}
-      - {x: 0.015518665, y: -0.116009384}
-      - {x: -0.12416172, y: 0.0589298}
-      - {x: -0.5, y: -0.23118055}
+    - - {x: 0.46795106, y: -0.037022382}
+      - {x: -0.17377973, y: -0.03676179}
+      - {x: -0.49984694, y: -0.17432147}
       - {x: -0.5, y: -0.5}
       - {x: 0.46875, y: -0.5}
-      - {x: 0.4928596, y: -0.17405748}
 --- !u!114 &2479298316388955018
 MonoBehaviour:
   m_ObjectHideFlags: 0

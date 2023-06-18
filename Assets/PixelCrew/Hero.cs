@@ -1,3 +1,4 @@
+using System;
 using PixelCrew.Components;
 using UnityEngine;
 
@@ -17,7 +18,7 @@ namespace PixelCrew
         [SerializeField] private Vector3 _groundCheckPositionDelta;
         
         [SerializeField] private SpawnComponent _footStepParticles;
-        
+        [SerializeField] private ParticleSystem _hitParticles;
         
         private Collider2D[] _interactionResult = new Collider2D[1];
         private Rigidbody2D _rigidbody;
@@ -30,6 +31,8 @@ namespace PixelCrew
         private static readonly int IsRunning = Animator.StringToHash("is-running");
         private static readonly int VerticalVelocity = Animator.StringToHash("vertical-velocity");
         private static readonly int Hit = Animator.StringToHash("hit");
+
+        private int _coins;
     
         private void Awake()
         {
@@ -123,10 +126,34 @@ namespace PixelCrew
             Debug.Log("Something!");
         }
 
+        public void AddCoins(int coins)
+        {
+            _coins += coins;
+            Debug.Log($"{coins} coins added. total coins:{_coins}");
+        }
+
         public void TakeDamage()
         {
             _animator.SetTrigger(Hit);
             _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, _damageJumpSpeed);
+
+            if (_coins > 0)
+            {
+                SpawnCoins();
+            }
+        }
+
+        private void SpawnCoins()
+        {
+            var _numCoinsToDispose = Math.Min(_coins, 5);
+            _coins -= _numCoinsToDispose;
+
+            var burst = _hitParticles.emission.GetBurst(0);
+            burst.count = _numCoinsToDispose;
+            _hitParticles.emission.SetBurst(0, burst);
+            
+            _hitParticles.gameObject.SetActive(true);
+            _hitParticles.Play();
         }
 
         public void Interact()

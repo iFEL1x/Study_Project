@@ -241,9 +241,9 @@ MonoBehaviour:
   _action:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8791809904216376953}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PixelCrew.Components.AddedObjectComponent, Assembly-CSharp
-        m_MethodName: AddedObject
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -302,7 +302,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee22a03ae950e394d9d04f63e14e0451, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _countSilverToGold: 3
 --- !u!114 &8791809904072954586
 MonoBehaviour:
   m_ObjectHideFlags: 0
