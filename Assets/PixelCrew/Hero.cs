@@ -18,6 +18,8 @@ namespace PixelCrew
         [SerializeField] private Vector3 _groundCheckPositionDelta;
         
         [SerializeField] private SpawnComponent _footStepParticles;
+        [SerializeField] private SpawnComponent _footJumpParticles;
+        [SerializeField] private SpawnComponent _footFallParticles;
         [SerializeField] private ParticleSystem _hitParticles;
         
         private Collider2D[] _interactionResult = new Collider2D[1];
@@ -26,7 +28,9 @@ namespace PixelCrew
         private Animator _animator;
         private bool _isGrounded;
         private bool _allowDoubleJump;
-        
+        private bool _isJumping;
+        private bool _longFall;
+
         private static readonly int IsGroundKey = Animator.StringToHash("is-ground");
         private static readonly int IsRunning = Animator.StringToHash("is-running");
         private static readonly int VerticalVelocity = Animator.StringToHash("vertical-velocity");
@@ -59,7 +63,7 @@ namespace PixelCrew
             _animator.SetBool(IsGroundKey, _isGrounded);
             _animator.SetBool(IsRunning, _direction.x != 0);
             _animator.SetFloat(VerticalVelocity, _rigidbody.velocity.y);
-
+            
             UpdateSpriteDirection();
         }
 
@@ -68,17 +72,23 @@ namespace PixelCrew
             var yVelocity = _rigidbody.velocity.y;
             var isJumpPressing = _direction.y > 0;
 
-            if (_isGrounded) _allowDoubleJump = true;
-            
+            if (_isGrounded)
+            {
+                _allowDoubleJump = true;
+                _isJumping = false;
+            }
+
             if (isJumpPressing)
             {
+                _isJumping = true;
                 yVelocity = CalculateJumpVelocity(yVelocity);
             }
-            else if (_rigidbody.velocity.y > 0)
+            else if (_rigidbody.velocity.y > 0 && _isJumping)
             {
                 yVelocity *= 0.5f;
             }
 
+            if (!_longFall && yVelocity < -12f) _longFall = true;
             return yVelocity;
         }
 
@@ -90,12 +100,13 @@ namespace PixelCrew
             if (_isGrounded)
             {
                 yVelocity += _jumpSpeed;
+                SpawnJumpDust();
             } else if (_allowDoubleJump)
             {
                 yVelocity = _jumpSpeed;
                 _allowDoubleJump = false;
+                SpawnJumpDust();
             }
-
             return yVelocity;
         }
         
@@ -134,6 +145,7 @@ namespace PixelCrew
 
         public void TakeDamage()
         {
+            _isJumping = false;
             _animator.SetTrigger(Hit);
             _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, _damageJumpSpeed);
 
@@ -177,6 +189,19 @@ namespace PixelCrew
         public void SpawnFootDust()
         {
             _footStepParticles.Spawn();
+        }
+
+        private void SpawnJumpDust()
+        {
+            _footJumpParticles.Spawn();
+        }
+
+        public void SpawnFallDust()
+        {
+            if (!_longFall) return;
+            
+            _footFallParticles.Spawn();
+            _longFall = false;
         }
     }
 }

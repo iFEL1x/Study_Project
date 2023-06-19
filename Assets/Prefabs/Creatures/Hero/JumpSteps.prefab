@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2262553488426090451}
   - component: {fileID: 487946530930957851}
   m_Layer: 0
-  m_Name: FootSteps
+  m_Name: JumpSteps
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -101,11 +101,12 @@ MonoBehaviour:
   _frameRate: 10
   _loop: 0
   _sprites:
-  - {fileID: 21300000, guid: f7848339cc553504fbe960f72bcdb2d4, type: 3}
-  - {fileID: 21300000, guid: d5b6e8b3984cf8b46befbcd4822f7b29, type: 3}
-  - {fileID: 21300000, guid: aab900184191d954a9ddb3112af4ad90, type: 3}
-  - {fileID: 21300000, guid: da025246d39367348bcb022793c19452, type: 3}
-  - {fileID: 21300000, guid: f33104fc7b1d01746aade8ddeb326bf0, type: 3}
+  - {fileID: 21300000, guid: be46f228961db354682a03e8720f0742, type: 3}
+  - {fileID: 21300000, guid: 01c83b7a97e56754dbf97254b372582d, type: 3}
+  - {fileID: 21300000, guid: e57736ce0cc72a046a1936e0d9255408, type: 3}
+  - {fileID: 21300000, guid: 69b13e9bbdc79bf4787ada4718e9426b, type: 3}
+  - {fileID: 21300000, guid: f7b745ab5d490084fa88358ba380038c, type: 3}
+  - {fileID: 21300000, guid: ab9b898341f2d1e4c86e5447a7870526, type: 3}
   _onComplete:
     m_PersistentCalls:
       m_Calls:
