@@ -20,7 +20,7 @@ namespace PixelCrew
         [SerializeField] private SpawnComponent _footStepParticles;
         [SerializeField] private SpawnComponent _footJumpParticles;
         [SerializeField] private SpawnComponent _footFallParticles;
-        [SerializeField] private ParticleSystem _hitParticles;
+        [SerializeField] private ParticleSystem _hitCointParticles;
         
         private Collider2D[] _interactionResult = new Collider2D[1];
         private Rigidbody2D _rigidbody;
@@ -160,12 +160,12 @@ namespace PixelCrew
             var _numCoinsToDispose = Math.Min(_coins, 5);
             _coins -= _numCoinsToDispose;
 
-            var burst = _hitParticles.emission.GetBurst(0);
+            var burst = _hitCointParticles.emission.GetBurst(0);
             burst.count = _numCoinsToDispose;
-            _hitParticles.emission.SetBurst(0, burst);
+            _hitCointParticles.emission.SetBurst(0, burst);
             
-            _hitParticles.gameObject.SetActive(true);
-            _hitParticles.Play();
+            _hitCointParticles.gameObject.SetActive(true);
+            _hitCointParticles.Play();
         }
 
         public void Interact()
