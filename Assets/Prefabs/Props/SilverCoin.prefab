@@ -98,12 +98,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _frameRate: 10
-  _loop: 0
-  _sprites:
-  - {fileID: -315254495, guid: abb45e60d2247034ebe9e3dbdf068929, type: 3}
-  - {fileID: 408531024, guid: abb45e60d2247034ebe9e3dbdf068929, type: 3}
-  - {fileID: 1884884945, guid: abb45e60d2247034ebe9e3dbdf068929, type: 3}
-  - {fileID: -962188179, guid: abb45e60d2247034ebe9e3dbdf068929, type: 3}
   _onComplete:
     m_PersistentCalls:
       m_Calls:
@@ -119,6 +113,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  _clips:
+  - _name: 
+    _sprites:
+    - {fileID: -315254495, guid: abb45e60d2247034ebe9e3dbdf068929, type: 3}
+    - {fileID: 408531024, guid: abb45e60d2247034ebe9e3dbdf068929, type: 3}
+    - {fileID: 1884884945, guid: abb45e60d2247034ebe9e3dbdf068929, type: 3}
+    - {fileID: -962188179, guid: abb45e60d2247034ebe9e3dbdf068929, type: 3}
+    _loop: 0
+    _allowNextClip: 0
+    _onComplete:
+      m_PersistentCalls:
+        m_Calls: []
 --- !u!1 &8791809904216376899
 GameObject:
   m_ObjectHideFlags: 0
@@ -315,12 +321,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _frameRate: 10
-  _loop: 1
-  _sprites:
-  - {fileID: -281561268, guid: abb45e60d2247034ebe9e3dbdf068929, type: 3}
-  - {fileID: 100907771, guid: abb45e60d2247034ebe9e3dbdf068929, type: 3}
-  - {fileID: -1046481660, guid: abb45e60d2247034ebe9e3dbdf068929, type: 3}
-  - {fileID: 1055601461, guid: abb45e60d2247034ebe9e3dbdf068929, type: 3}
   _onComplete:
     m_PersistentCalls:
       m_Calls: []
+  _clips:
+  - _name: 
+    _sprites:
+    - {fileID: -281561268, guid: abb45e60d2247034ebe9e3dbdf068929, type: 3}
+    - {fileID: 100907771, guid: abb45e60d2247034ebe9e3dbdf068929, type: 3}
+    - {fileID: -1046481660, guid: abb45e60d2247034ebe9e3dbdf068929, type: 3}
+    - {fileID: 1055601461, guid: abb45e60d2247034ebe9e3dbdf068929, type: 3}
+    _loop: 1
+    _allowNextClip: 0
+    _onComplete:
+      m_PersistentCalls:
+        m_Calls: []
