@@ -242,13 +242,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Barrel_6
+      name: Barrel_7
       rect:
         serializedVersion: 2
         x: 195
         y: 0
-        width: 37
-        height: 34
+        width: 18
+        height: 17
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -256,8 +256,71 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 27306e4df96aa494fbdb31c104561ce3
-      internalID: -290429226
+      spriteID: 045c74e69b7b95a4b915ac11bacbf79a
+      internalID: -1420242419
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Barrel_8
+      rect:
+        serializedVersion: 2
+        x: 213
+        y: 0
+        width: 19
+        height: 17
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 65c1a97383d0db0409ab62b354553c68
+      internalID: 1861477347
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Barrel_6
+      rect:
+        serializedVersion: 2
+        x: 195
+        y: 17
+        width: 18
+        height: 17
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 21c309bc4bb2570498d18ea04fd03c50
+      internalID: -79059413
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Barrel_9
+      rect:
+        serializedVersion: 2
+        x: 213
+        y: 17
+        width: 19
+        height: 17
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: da648a2131390954fa69a408f55f2a18
+      internalID: 870418886
       vertices: []
       indices: 
       edges: []
@@ -277,9 +340,12 @@ TextureImporter:
       Barrel_0: -132668372
       Barrel_6: -79059413
       Barrel_5: -1901384744
+      Barrel_8: 1861477347
       Barrel_4: -1722267475
+      Barrel_7: -1420242419
       Barrel_2: -1302032078
       Barrel_3: -234254315
+      Barrel_9: 870418886
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

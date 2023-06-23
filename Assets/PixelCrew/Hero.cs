@@ -1,5 +1,6 @@
 using System;
 using PixelCrew.Components;
+using PixelCrew.Components.Utils;
 using UnityEngine;
 
 namespace PixelCrew
@@ -10,6 +11,7 @@ namespace PixelCrew
         [SerializeField] private float _speed;
         [SerializeField] private float _jumpSpeed;
         [SerializeField] private float _damageJumpSpeed;
+        [SerializeField] private float _slamDownVelocity;
         [SerializeField] private LayerMask _groundLayer;
         [SerializeField] private float _interactionRadius;
         [SerializeField] private LayerMask _interactionLayer;
@@ -17,9 +19,10 @@ namespace PixelCrew
         [SerializeField] private float _groundCheckRadius;
         [SerializeField] private Vector3 _groundCheckPositionDelta;
         
+        [Space] [Header("Particles")]
         [SerializeField] private SpawnComponent _footStepParticles;
-        [SerializeField] private SpawnComponent _footJumpParticles;
-        [SerializeField] private SpawnComponent _footFallParticles;
+        [SerializeField] private SpawnComponent _jumpParticles;
+        [SerializeField] private SpawnComponent _slamDownParticles;
         [SerializeField] private ParticleSystem _hitCointParticles;
         
         private Collider2D[] _interactionResult = new Collider2D[1];
@@ -29,7 +32,6 @@ namespace PixelCrew
         private bool _isGrounded;
         private bool _allowDoubleJump;
         private bool _isJumping;
-        private bool _longFall;
 
         private static readonly int IsGroundKey = Animator.StringToHash("is-ground");
         private static readonly int IsRunning = Animator.StringToHash("is-running");
@@ -87,8 +89,6 @@ namespace PixelCrew
             {
                 yVelocity *= 0.5f;
             }
-
-            if (!_longFall && yVelocity < -12f) _longFall = true;
             return yVelocity;
         }
 
@@ -100,12 +100,13 @@ namespace PixelCrew
             if (_isGrounded)
             {
                 yVelocity += _jumpSpeed;
-                SpawnJumpDust();
-            } else if (_allowDoubleJump)
+                _jumpParticles.Spawn();
+            } 
+            else if (_allowDoubleJump)
             {
                 yVelocity = _jumpSpeed;
+                _jumpParticles.Spawn();
                 _allowDoubleJump = false;
-                SpawnJumpDust();
             }
             return yVelocity;
         }
@@ -166,6 +167,7 @@ namespace PixelCrew
             
             _hitCointParticles.gameObject.SetActive(true);
             _hitCointParticles.Play();
+            Debug.Log($"Total coins:{_coins}");
         }
 
         public void Interact()
@@ -185,23 +187,22 @@ namespace PixelCrew
                 }
             }
         }
-
         public void SpawnFootDust()
         {
             _footStepParticles.Spawn();
         }
 
-        private void SpawnJumpDust()
+        private void OnCollisionEnter2D(Collision2D other)
         {
-            _footJumpParticles.Spawn();
-        }
-
-        public void SpawnFallDust()
-        {
-            if (!_longFall) return;
-            
-            _footFallParticles.Spawn();
-            _longFall = false;
+            if (other.gameObject.IsInLayer(_groundLayer))
+            {
+                var contact = other.contacts[0];
+                
+                if (contact.relativeVelocity.y >= _slamDownVelocity)
+                {
+                    _slamDownParticles.Spawn();
+                }
+            }
         }
     }
 }

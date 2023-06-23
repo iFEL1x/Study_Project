@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2262553488426090451}
   - component: {fileID: 487946530930957851}
   m_Layer: 0
-  m_Name: FallSteps
+  m_Name: JumpParticle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -99,34 +99,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _frameRate: 10
-  _onComplete:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 487946530930957851}
-        m_TargetAssemblyTypeName: PixelCrew.Components.DestroyObjectComponent, Assembly-CSharp
-        m_MethodName: DestroyObject
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
   _clips:
   - _name: 
     _sprites:
-    - {fileID: 21300000, guid: 09ccbaf11fa69514bb4966eb7b992de9, type: 3}
-    - {fileID: 21300000, guid: b7e7aa5d3592c92418a5229f4d99cb15, type: 3}
-    - {fileID: 21300000, guid: a14e5a7b9ba07614b8c984c9bef4e7a1, type: 3}
-    - {fileID: 21300000, guid: f6c6b761392e7a94b94580394752e331, type: 3}
-    - {fileID: 21300000, guid: 084bd0e21db898f47832561477329feb, type: 3}
+    - {fileID: 21300000, guid: be46f228961db354682a03e8720f0742, type: 3}
+    - {fileID: 21300000, guid: 01c83b7a97e56754dbf97254b372582d, type: 3}
+    - {fileID: 21300000, guid: e57736ce0cc72a046a1936e0d9255408, type: 3}
+    - {fileID: 21300000, guid: 69b13e9bbdc79bf4787ada4718e9426b, type: 3}
+    - {fileID: 21300000, guid: f7b745ab5d490084fa88358ba380038c, type: 3}
+    - {fileID: 21300000, guid: ab9b898341f2d1e4c86e5447a7870526, type: 3}
     _loop: 0
     _allowNextClip: 0
     _onComplete:
       m_PersistentCalls:
-        m_Calls: []
+        m_Calls:
+        - m_Target: {fileID: 487946530930957851}
+          m_TargetAssemblyTypeName: PixelCrew.Components.DestroyObjectComponent,
+            Assembly-CSharp
+          m_MethodName: DestroyObject
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!114 &487946530930957851
 MonoBehaviour:
   m_ObjectHideFlags: 0

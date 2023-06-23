@@ -38,7 +38,8 @@ namespace PixelCrew
         {
             if (context.canceled)
             {
-                _hero.Interact();
+                if(_hero != null)
+                    _hero.Interact();
             }
         }
     }

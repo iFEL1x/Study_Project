@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace PixelCrew.Components
 {
@@ -8,6 +9,12 @@ namespace PixelCrew.Components
         [SerializeField] private Animator _animator;
         [SerializeField] private bool _state;
         [SerializeField] private string _animatioinKey;
+
+
+        private void Start()
+        {
+            _animator.SetBool(_animatioinKey, _state);
+        }
 
         public void Switch()
         {
