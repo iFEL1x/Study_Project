@@ -16,9 +16,9 @@ GameObject:
   - component: {fileID: 3373007518528535708}
   - component: {fileID: 3373007518528535709}
   - component: {fileID: 3373007518528535696}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Barrel_Destructable
-  m_TagString: Player
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

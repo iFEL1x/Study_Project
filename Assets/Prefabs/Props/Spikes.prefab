@@ -112,7 +112,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63178214bf764eac872e5e3d14f6034d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _tag: Player
+  _tags: []
   _action:
     m_PersistentCalls:
       m_Calls:

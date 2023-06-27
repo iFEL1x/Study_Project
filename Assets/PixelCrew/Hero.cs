@@ -1,6 +1,8 @@
 using System;
 using PixelCrew.Components;
-using PixelCrew.Components.Utils;
+using PixelCrew.Utils;
+using UnityEditor;
+using UnityEditor.Animations;
 using UnityEngine;
 
 namespace PixelCrew
@@ -12,12 +14,18 @@ namespace PixelCrew
         [SerializeField] private float _jumpSpeed;
         [SerializeField] private float _damageJumpSpeed;
         [SerializeField] private float _slamDownVelocity;
+        [SerializeField] private int _damage;
         [SerializeField] private LayerMask _groundLayer;
         [SerializeField] private float _interactionRadius;
         [SerializeField] private LayerMask _interactionLayer;
     
         [SerializeField] private float _groundCheckRadius;
         [SerializeField] private Vector3 _groundCheckPositionDelta;
+
+        [SerializeField] private AnimatorController _armed;
+        [SerializeField] private AnimatorController _disarmed;
+
+        [SerializeField] private CheckCircleOverlap _attackTange;
         
         [Space] [Header("Particles")]
         [SerializeField] private SpawnComponent _footStepParticles;
@@ -37,8 +45,11 @@ namespace PixelCrew
         private static readonly int IsRunning = Animator.StringToHash("is-running");
         private static readonly int VerticalVelocity = Animator.StringToHash("vertical-velocity");
         private static readonly int Hit = Animator.StringToHash("hit");
+        private static readonly int AttackKey = Animator.StringToHash("attack");
 
         private int _coins;
+
+        private bool _isArmed;
     
         private void Awake()
         {
@@ -126,12 +137,17 @@ namespace PixelCrew
                 _groundCheckRadius, Vector2.down, 0, _groundLayer);
             return hit.collider != null;
         }
-    
+        
+#if UNITY_EDITOR
         private void OnDrawGizmos()
         {
-            Gizmos.color = IsGrounded() ? Color.green : Color.red;
-            Gizmos.DrawSphere(transform.position + _groundCheckPositionDelta, _groundCheckRadius);
+            //Gizmos.color = IsGrounded() ? Color.green : Color.red;
+            //Gizmos.DrawSphere(transform.position + _groundCheckPositionDelta, _groundCheckRadius);
+            
+            Handles.color = IsGrounded() ? HandlesUtils.TransparentGreen : HandlesUtils.TransparentRed;
+            Handles.DrawSolidDisc(transform.position + _groundCheckPositionDelta, Vector3.forward, _groundCheckRadius);
         }
+#endif
     
         public void SaySomething()
         {
@@ -203,6 +219,31 @@ namespace PixelCrew
                     _slamDownParticles.Spawn();
                 }
             }
+        }
+
+        public void Attack()
+        {
+            if(!_isArmed) return;
+            _animator.SetTrigger(AttackKey);
+        }
+
+        public void Attacking()
+        {
+            var gos = _attackTange.GetObjectsInRange();
+            foreach (var go in gos)
+            {
+                var hp = go.GetComponent<HealthComponent>();
+                if(hp != null && go.CompareTag("Enemy"))
+                {
+                    hp.ModifyHealth(-_damage);
+                }
+            }
+        }
+
+        public void ArmHero()
+        {
+            _isArmed = true;
+            _animator.runtimeAnimatorController = _armed;
         }
     }
 }
