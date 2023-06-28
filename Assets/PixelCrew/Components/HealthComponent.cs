@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -9,11 +10,13 @@ namespace PixelCrew.Components
         [SerializeField] private UnityEvent _onDamage;
         [SerializeField] private UnityEvent _onHeal;
         [SerializeField] private UnityEvent _onDie;
-        [SerializeField] private bool _isDiead;
+        [SerializeField] private HealthChangeEvent _onChange;
+        private bool _isDiead;
 
         public void ModifyHealth(int healthDelta)
         {
-             _health += healthDelta;
+            _health += healthDelta;
+            _onChange?.Invoke(_health);
             
             if (_health > 0)
             {
@@ -31,6 +34,16 @@ namespace PixelCrew.Components
                 _onDie?.Invoke();
                 _isDiead = true;
             }
+        }
+
+        public void SetHealth(int health)
+        {
+            _health = health;
+        }
+        
+        [Serializable]
+        public class HealthChangeEvent : UnityEvent<int>
+        {
         }
     }
 }

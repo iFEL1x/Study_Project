@@ -189,7 +189,6 @@ MonoBehaviour:
     - {fileID: 966469980, guid: 8c5c3fd16525e054fb7082b91ab3710e, type: 3}
     - {fileID: -2106869682, guid: 8c5c3fd16525e054fb7082b91ab3710e, type: 3}
     - {fileID: 567399322, guid: 8c5c3fd16525e054fb7082b91ab3710e, type: 3}
-    - {fileID: 966469980, guid: 8c5c3fd16525e054fb7082b91ab3710e, type: 3}
     _loop: 0
     _allowNextClip: 0
     _onComplete:
@@ -279,6 +278,9 @@ MonoBehaviour:
           m_StringArgument: destroy
           m_BoolArgument: 0
         m_CallState: 2
+  _onChange:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &3373007518528535696
 MonoBehaviour:
   m_ObjectHideFlags: 0

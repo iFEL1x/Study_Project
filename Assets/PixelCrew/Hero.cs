@@ -1,5 +1,6 @@
 using System;
 using PixelCrew.Components;
+using PixelCrew.Model;
 using PixelCrew.Utils;
 using UnityEditor;
 using UnityEditor.Animations;
@@ -18,6 +19,8 @@ namespace PixelCrew
         [SerializeField] private LayerMask _groundLayer;
         [SerializeField] private float _interactionRadius;
         [SerializeField] private LayerMask _interactionLayer;
+        [SerializeField] private float _damageVelocity;
+        [SerializeField] private int _damageIsFall;
     
         [SerializeField] private float _groundCheckRadius;
         [SerializeField] private Vector3 _groundCheckPositionDelta;
@@ -37,6 +40,7 @@ namespace PixelCrew
         private Rigidbody2D _rigidbody;
         private Vector2 _direction;
         private Animator _animator;
+        private HealthComponent _healthComponent;
         private bool _isGrounded;
         private bool _allowDoubleJump;
         private bool _isJumping;
@@ -47,16 +51,27 @@ namespace PixelCrew
         private static readonly int Hit = Animator.StringToHash("hit");
         private static readonly int AttackKey = Animator.StringToHash("attack");
 
-        private int _coins;
-
-        private bool _isArmed;
-    
+        private GameSession _session;
         private void Awake()
         {
             _rigidbody = GetComponent<Rigidbody2D>();
             _animator = GetComponent<Animator>();
+            _healthComponent = GetComponent<HealthComponent>();
         }
-    
+
+        private void Start()
+        {
+            _session = FindObjectOfType<GameSession>();
+
+            _healthComponent.SetHealth(_session.Data.Hp);
+            UpdateHeroWeapon();
+        }
+
+        public void OnHealthChanged(int currentHealth)
+        {
+            _session.Data.Hp = currentHealth;
+        }
+
         public void SetDirection(Vector2 direction)
         {
             _direction = direction;
@@ -156,8 +171,8 @@ namespace PixelCrew
 
         public void AddCoins(int coins)
         {
-            _coins += coins;
-            Debug.Log($"{coins} coins added. total coins:{_coins}");
+            _session.Data.Coins += coins;
+            Debug.Log($"{coins} coins added. total coins:{_session.Data.Coins}");
         }
 
         public void TakeDamage()
@@ -166,7 +181,7 @@ namespace PixelCrew
             _animator.SetTrigger(Hit);
             _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, _damageJumpSpeed);
 
-            if (_coins > 0)
+            if (_session.Data.Coins > 0)
             {
                 SpawnCoins();
             }
@@ -174,8 +189,8 @@ namespace PixelCrew
 
         private void SpawnCoins()
         {
-            var _numCoinsToDispose = Math.Min(_coins, 5);
-            _coins -= _numCoinsToDispose;
+            var _numCoinsToDispose = Math.Min(_session.Data.Coins, 5);
+            _session.Data.Coins -= _numCoinsToDispose;
 
             var burst = _hitCointParticles.emission.GetBurst(0);
             burst.count = _numCoinsToDispose;
@@ -183,7 +198,7 @@ namespace PixelCrew
             
             _hitCointParticles.gameObject.SetActive(true);
             _hitCointParticles.Play();
-            Debug.Log($"Total coins:{_coins}");
+            Debug.Log($"Total coins:{_session.Data.Coins}");
         }
 
         public void Interact()
@@ -218,12 +233,17 @@ namespace PixelCrew
                 {
                     _slamDownParticles.Spawn();
                 }
+
+                if (contact.relativeVelocity.y >= _damageVelocity)
+                {
+                    _healthComponent.ModifyHealth(_damageIsFall);
+                }
             }
         }
 
         public void Attack()
         {
-            if(!_isArmed) return;
+            if(!_session.Data.IsArmed) return;
             _animator.SetTrigger(AttackKey);
         }
 
@@ -242,8 +262,13 @@ namespace PixelCrew
 
         public void ArmHero()
         {
-            _isArmed = true;
-            _animator.runtimeAnimatorController = _armed;
+            _session.Data.IsArmed = true;
+            UpdateHeroWeapon();
+        }
+
+        private void UpdateHeroWeapon()
+        {
+            _animator.runtimeAnimatorController = _session.Data.IsArmed ? _armed : _disarmed;
         }
     }
 }
