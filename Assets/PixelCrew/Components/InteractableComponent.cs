@@ -7,8 +7,10 @@ namespace PixelCrew.Components
     {
         [SerializeField] private UnityEvent _action;
 
+        [ContextMenu("Invoke Interact")]
         public void Interact()
         {
+            Debug.Log("Interact");
             _action.Invoke();
         }
     }

@@ -40,7 +40,10 @@ namespace PixelCrew
             if (context.canceled)
             {
                 if(_hero != null)
+                {
+                    Debug.Log("Input_E");
                     _hero.Interact();
+                }
             }
         }
 

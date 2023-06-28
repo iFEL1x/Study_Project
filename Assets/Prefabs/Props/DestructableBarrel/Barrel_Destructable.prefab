@@ -76,8 +76,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1850422667
-  m_SortingLayer: 2
+  m_SortingLayerID: -1354041791
+  m_SortingLayer: 3
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 5af9f21368e303d4ea18c9835763a239, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -186,7 +186,6 @@ MonoBehaviour:
           m_CallState: 2
   - _name: destroy
     _sprites:
-    - {fileID: 0}
     - {fileID: 966469980, guid: 8c5c3fd16525e054fb7082b91ab3710e, type: 3}
     - {fileID: -2106869682, guid: 8c5c3fd16525e054fb7082b91ab3710e, type: 3}
     - {fileID: 567399322, guid: 8c5c3fd16525e054fb7082b91ab3710e, type: 3}
@@ -246,7 +245,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f4bdcdd11a0a304d82eb3af0a675dd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _health: 1
+  _health: 10
   _onDamage:
     m_PersistentCalls:
       m_Calls:
