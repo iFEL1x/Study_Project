@@ -112,7 +112,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63178214bf764eac872e5e3d14f6034d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _tags: []
+  _tags:
+  - Player
+  - Enemy
   _action:
     m_PersistentCalls:
       m_Calls:
@@ -153,8 +155,8 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.43, y: 0.0125}
-      - {x: -0.175, y: -0.035}
+    - - {x: 0.43, y: -0.155}
+      - {x: 0, y: 0}
       - {x: -0.45, y: -0.155}
       - {x: -0.45, y: -0.5}
       - {x: 0.43, y: -0.5}
