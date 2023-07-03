@@ -5,7 +5,8 @@ namespace PixelCrew.Creatures
 {
     public class Creature : MonoBehaviour
     {
-        [Header("Params")]
+        [Header("Params")] 
+        [SerializeField] private bool _invertScale;
         [SerializeField] private float _speed;
         [SerializeField] protected float JumpSpeed;
         [SerializeField] private float _damageVelocity;
@@ -94,11 +95,11 @@ namespace PixelCrew.Creatures
         
         protected void UpdateSpriteDirection()
         {
+            var multipler = _invertScale ? -1 : 1;
             if (Direction.x > 0)
-                transform.localScale = Vector3.one;
-
+                transform.localScale = new Vector3(multipler,1,1);
             else if (Direction.x < 0)
-                transform.localScale = new Vector3(-1, 1, 1);
+                transform.localScale = new Vector3(-1 * multipler, 1, 1);
         }
         
         public virtual void TakeDamage()

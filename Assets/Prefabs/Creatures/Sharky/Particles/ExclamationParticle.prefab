@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2262553488426090451}
   - component: {fileID: 487946530930957851}
   m_Layer: 0
-  m_Name: JumpParticle
+  m_Name: ExclamationParticle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 1850422667
   m_SortingLayer: 2
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: f7848339cc553504fbe960f72bcdb2d4, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c906a3d95c517438f9c1866a8886c792, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -99,15 +99,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _frameRate: 10
+  _onComplete:
+    m_PersistentCalls:
+      m_Calls: []
   _clips:
   - _name: 
     _sprites:
-    - {fileID: 21300000, guid: be46f228961db354682a03e8720f0742, type: 3}
-    - {fileID: 21300000, guid: 01c83b7a97e56754dbf97254b372582d, type: 3}
-    - {fileID: 21300000, guid: e57736ce0cc72a046a1936e0d9255408, type: 3}
-    - {fileID: 21300000, guid: 69b13e9bbdc79bf4787ada4718e9426b, type: 3}
-    - {fileID: 21300000, guid: f7b745ab5d490084fa88358ba380038c, type: 3}
-    - {fileID: 21300000, guid: ab9b898341f2d1e4c86e5447a7870526, type: 3}
+    - {fileID: 21300000, guid: c906a3d95c517438f9c1866a8886c792, type: 3}
+    - {fileID: 21300000, guid: b195e78fb9b274d7aa36580b61f49d75, type: 3}
+    - {fileID: 21300000, guid: 576258e4707d54e16a5c5fd0b9871343, type: 3}
+    - {fileID: 21300000, guid: e2e20fbe0ffd84803ab3d7a7cba7ae04, type: 3}
+    - {fileID: 21300000, guid: 95818f7103cc34324bb75ad4eec9b9ac, type: 3}
     _loop: 0
     _allowNextClip: 0
     _onComplete:
