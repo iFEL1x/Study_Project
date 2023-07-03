@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Enemy
+  - Interactable
   layers:
   - Default
   - TransparentFX
@@ -17,8 +18,8 @@ TagManager:
   - Interactables
   - Trash
   - Walls
-  - 
-  - 
+  - Hero
+  - Confiner
   - 
   - 
   - 
@@ -53,4 +54,7 @@ TagManager:
     locked: 0
   - name: Hero
     uniqueID: 1691110529
+    locked: 0
+  - name: Creatures
+    uniqueID: 3229941077
     locked: 0

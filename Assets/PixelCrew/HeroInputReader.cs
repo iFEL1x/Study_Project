@@ -14,7 +14,6 @@ namespace PixelCrew
             _inputAtcions = new HeroInputAction();
             _inputAtcions.Hero.HorisontalMovement.performed += OnHorisontalMovement;
             _inputAtcions.Hero.HorisontalMovement.canceled += OnHorisontalMovement;
-            _inputAtcions.Hero.SaySomething.performed += OnSaySomething;
             _inputAtcions.Hero.Interact.canceled += OnInteract;
             _inputAtcions.Hero.Attack.canceled += OnAttack;
         }
@@ -28,11 +27,6 @@ namespace PixelCrew
         {
             var direction = context.ReadValue<Vector2>();
             _hero.SetDirection(direction);
-        }
-
-        private void OnSaySomething(InputAction.CallbackContext context)
-        {
-            _hero.SaySomething();
         }
 
         private void OnInteract(InputAction.CallbackContext context)

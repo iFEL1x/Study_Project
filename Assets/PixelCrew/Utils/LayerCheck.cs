@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace PixelCrew.Components
+namespace PixelCrew
 {
     public class LayerCheck : MonoBehaviour
     {

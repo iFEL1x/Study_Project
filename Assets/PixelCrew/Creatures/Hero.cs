@@ -1,5 +1,6 @@
 using System;
 using PixelCrew.Components;
+using PixelCrew.Creatures;
 using PixelCrew.Model;
 using PixelCrew.Utils;
 using UnityEditor;
@@ -9,64 +10,41 @@ using UnityEngine;
 namespace PixelCrew
 {
     [RequireComponent(typeof(Rigidbody2D))]
-    public class Hero : MonoBehaviour
+    public class Hero : Creature
     {
-        [SerializeField] private float _speed;
-        [SerializeField] private float _jumpSpeed;
-        [SerializeField] private float _damageJumpSpeed;
-        [SerializeField] private float _slamDownVelocity;
-        [SerializeField] private int _damage;
-        [SerializeField] private LayerMask _groundLayer;
-        [SerializeField] private float _interactionRadius;
-        [SerializeField] private LayerMask _interactionLayer;
-        [SerializeField] private float _damageVelocity;
+        [SerializeField] private float _damageDownVelocity;
         [SerializeField] private int _damageIsFall;
+        
+        [SerializeField] private CheckCircleOverlap _interactionCheck;
+        [SerializeField] private LayerMask _interactionLayer;
         [SerializeField] private LayerCheck _wallCheck;
-    
-        [SerializeField] private float _groundCheckRadius;
-        [SerializeField] private Vector3 _groundCheckPositionDelta;
+
+        [SerializeField] private float _slamDownVelocity;
+        [SerializeField] private float _interactionRadius;
 
         [SerializeField] private AnimatorController _armed;
         [SerializeField] private AnimatorController _disarmed;
-
-        [SerializeField] private CheckCircleOverlap _attackTange;
         
         [Space] [Header("Particles")]
-        [SerializeField] private SpawnComponent _footStepParticles;
-        [SerializeField] private SpawnComponent _jumpParticles;
-        [SerializeField] private SpawnComponent _slamDownParticles;
         [SerializeField] private ParticleSystem _hitCointParticles;
         
-        private Collider2D[] _interactionResult = new Collider2D[1];
-        private Rigidbody2D _rigidbody;
-        private Vector2 _direction;
-        private Animator _animator;
         private HealthComponent _healthComponent;
-        private bool _isGrounded;
         private bool _allowDoubleJump;
-        private bool _isJumping;
         private bool _isOnWall;
-
-        private static readonly int IsGroundKey = Animator.StringToHash("is-ground");
-        private static readonly int IsRunning = Animator.StringToHash("is-running");
-        private static readonly int VerticalVelocity = Animator.StringToHash("vertical-velocity");
-        private static readonly int Hit = Animator.StringToHash("hit");
-        private static readonly int AttackKey = Animator.StringToHash("attack");
-
+        
         private GameSession _session;
         private float _defaultGravityScale;
-        private void Awake()
+
+        protected override void Awake()
         {
-            _rigidbody = GetComponent<Rigidbody2D>();
-            _animator = GetComponent<Animator>();
+            base.Awake();
+            _defaultGravityScale = Rigidbody.gravityScale;
             _healthComponent = GetComponent<HealthComponent>();
-            _defaultGravityScale = _rigidbody.gravityScale;
         }
 
         private void Start()
         {
             _session = FindObjectOfType<GameSession>();
-
             _healthComponent.SetHealth(_session.Data.Hp);
             UpdateHeroWeapon();
         }
@@ -76,116 +54,49 @@ namespace PixelCrew
             _session.Data.Hp = currentHealth;
         }
 
-        public void SetDirection(Vector2 direction)
+        protected override void Update()
         {
-            _direction = direction;
-        }
+            base.Update();
 
-        private void Update()
-        {
-            _isGrounded = IsGrounded();
-
-            if (_wallCheck.IsTouchingLayer && _direction.x == transform.localScale.x)
+            if (_wallCheck.IsTouchingLayer && Direction.x == transform.localScale.x)
             {
                 _isOnWall = true;
-                _rigidbody.gravityScale = 0;
+                Rigidbody.gravityScale = 0;
             }
             else
             {
                 _isOnWall = false;
-                _rigidbody.gravityScale = _defaultGravityScale;
+                Rigidbody.gravityScale = _defaultGravityScale;
             }
         }
 
-        private void FixedUpdate()
+        protected override float CalculateYVelocity()
         {
-            var xVelocity = _direction.x * _speed;
-            var yVelocity = CalculateYVelocity();
-            _rigidbody.velocity = new Vector2(xVelocity, yVelocity);
-
-            _animator.SetBool(IsGroundKey, _isGrounded);
-            _animator.SetBool(IsRunning, _direction.x != 0);
-            _animator.SetFloat(VerticalVelocity, _rigidbody.velocity.y);
+            var isJumpPressing = Direction.y > 0;
             
-            UpdateSpriteDirection();
-        }
-
-        private float CalculateYVelocity()
-        {
-            var yVelocity = _rigidbody.velocity.y;
-            var isJumpPressing = _direction.y > 0;
-            
-            if (_isGrounded)
+            if (IsGrounded || _isOnWall)
             {
                 _allowDoubleJump = true;
-                _isJumping = false;
             }
-            if (isJumpPressing)
+
+            if (!isJumpPressing && _isOnWall)
             {
-                _isJumping = true;
-                yVelocity = CalculateJumpVelocity(yVelocity);
+                return 0f;
             }
-            else if (_isOnWall)
-            {
-                _allowDoubleJump = true;
-                yVelocity = 0f;
-            }
-            else if (_rigidbody.velocity.y > 0 && _isJumping)
-            {
-                yVelocity *= 0.5f;
-            }
-            return yVelocity;
+
+            return base.CalculateYVelocity();
         }
 
-        private float CalculateJumpVelocity(float yVelocity)
+        protected override float CalculateJumpVelocity(float yVelocity)
         {
-            var isFalling = _rigidbody.velocity.y <= 0.0001f;
-            if (!isFalling) return yVelocity;
-
-            if (_isGrounded)
+            if (!IsGrounded && _allowDoubleJump)
             {
-                yVelocity += _jumpSpeed;
-                _jumpParticles.Spawn();
-            } 
-            else if (_allowDoubleJump)
-            {
-                yVelocity = _jumpSpeed;
-                _jumpParticles.Spawn();
+                Particles.Spawn("Jump");
                 _allowDoubleJump = false;
+                return JumpSpeed;
             }
-            return yVelocity;
-        }
-        
-        private void UpdateSpriteDirection()
-        {
-            if (_direction.x > 0)
-                transform.localScale = Vector3.one;
-
-            else if (_direction.x < 0)
-                transform.localScale = new Vector3(-1, 1, 1);
-        }
-    
-        private bool IsGrounded()
-        {
-            var hit = Physics2D.CircleCast(transform.position + _groundCheckPositionDelta, 
-                _groundCheckRadius, Vector2.down, 0, _groundLayer);
-            return hit.collider != null;
-        }
-        
-#if UNITY_EDITOR
-        private void OnDrawGizmos()
-        {
-            //Gizmos.color = IsGrounded() ? Color.green : Color.red;
-            //Gizmos.DrawSphere(transform.position + _groundCheckPositionDelta, _groundCheckRadius);
             
-            Handles.color = IsGrounded() ? HandlesUtils.TransparentGreen : HandlesUtils.TransparentRed;
-            Handles.DrawSolidDisc(transform.position + _groundCheckPositionDelta, Vector3.forward, _groundCheckRadius);
-        }
-#endif
-    
-        public void SaySomething()
-        {
-            Debug.Log("Something!");
+            return base.CalculateJumpVelocity(yVelocity);
         }
 
         public void AddCoins(int coins)
@@ -194,12 +105,9 @@ namespace PixelCrew
             Debug.Log($"{coins} coins added. total coins:{_session.Data.Coins}");
         }
 
-        public void TakeDamage()
+        public override void TakeDamage()
         {
-            _isJumping = false;
-            _animator.SetTrigger(Hit);
-            _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, _damageJumpSpeed);
-
+            base.TakeDamage();
             if (_session.Data.Coins > 0)
             {
                 SpawnCoins();
@@ -222,63 +130,33 @@ namespace PixelCrew
 
         public void Interact()
         {
-            var size = Physics2D.OverlapCircleNonAlloc(
-                transform.position, 
-                _interactionRadius, 
-                _interactionResult, 
-                _interactionLayer);
-
-            for (int i = 0; i < size; i++)
-            {
-                var interactable = _interactionResult[i].GetComponent<InteractableComponent>();
-                if (interactable != null)
-                {
-                    interactable.Interact();
-                }
-            }
+            _interactionCheck.Check();
         }
-        public void SpawnFootDust()
-        {
-            _footStepParticles.Spawn();
-        }
-
+        
         private void OnCollisionEnter2D(Collision2D other)
         {
-            if (other.gameObject.IsInLayer(_groundLayer))
+            if (other.gameObject.IsInLayer(GroundLayer))
             {
                 var contact = other.contacts[0];
                 
                 if (contact.relativeVelocity.y >= _slamDownVelocity)
                 {
-                    _slamDownParticles.Spawn();
+                    Particles.Spawn("SlamDown");
                 }
 
-                if (contact.relativeVelocity.y >= _damageVelocity)
+                if (contact.relativeVelocity.y >= _damageDownVelocity)
                 {
-                    _healthComponent.ModifyHealth(_damageIsFall);
+                    _healthComponent.ModifyHealth(-_damageIsFall);
                 }
             }
         }
 
-        public void Attack()
+        public override void Attack()
         {
             if(!_session.Data.IsArmed) return;
-            _animator.SetTrigger(AttackKey);
+            base.Attack();
         }
-
-        public void Attacking()
-        {
-            var gos = _attackTange.GetObjectsInRange();
-            foreach (var go in gos)
-            {
-                var hp = go.GetComponent<HealthComponent>();
-                if(hp != null && go.CompareTag("Enemy"))
-                {
-                    hp.ModifyHealth(-_damage);
-                }
-            }
-        }
-
+        
         public void ArmHero()
         {
             _session.Data.IsArmed = true;
@@ -287,7 +165,7 @@ namespace PixelCrew
 
         private void UpdateHeroWeapon()
         {
-            _animator.runtimeAnimatorController = _session.Data.IsArmed ? _armed : _disarmed;
+            Animator.runtimeAnimatorController = _session.Data.IsArmed ? _armed : _disarmed;
         }
     }
 }
