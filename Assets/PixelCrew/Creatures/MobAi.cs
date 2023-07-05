@@ -11,25 +11,35 @@ namespace PixelCrew.Creatures
 
         [SerializeField] private float _alarmDelay = 0.5f;
         [SerializeField] private float _attackCooldown = 1f;
+        [SerializeField] private float _missHeroCooldown = 0.5f;
         private Coroutine _current;
         private GameObject _target;
 
+        private static readonly int IsDeadKey = Animator.StringToHash("is-dead");
+
         private SpawnListComponent _particles;
         private Creature _creature;
-
+        private Animator _animator;
+        private bool _isDead;
+        private Patrol _patrol;
+        
         private void Awake()
         {
             _particles = GetComponent<SpawnListComponent>();
             _creature = GetComponent<Creature>();
+            _animator = GetComponent<Animator>();
+            _patrol = GetComponent<Patrol>();
         }
 
         private void Start()
         {
-            StartState(Patrolling());
+            StartState(_patrol.DoPatrol());
         }
 
         public void OnHeroInVision(GameObject go)
         {
+            if(_isDead) return;
+            
             _target = go;
             StartState(AgroToHero());
         }
@@ -56,6 +66,10 @@ namespace PixelCrew.Creatures
                 
                 yield return null;
             }
+            
+            _particles.Spawn("MissHero");
+            StartState(_patrol.DoPatrol());
+            yield return new WaitForSeconds(_missHeroCooldown);
         }
 
         private IEnumerator Attack()
@@ -75,18 +89,23 @@ namespace PixelCrew.Creatures
             direction.y = 0;
             _creature.SetDirection(direction.normalized);
         }
-
-        private IEnumerator Patrolling()
-        {
-            yield return null;
-        }
         
         private void StartState(IEnumerator coroutine)
         {
+            _creature.SetDirection(Vector2.zero);
             if (_current != null)
                 StopCoroutine(_current);
 
             _current = StartCoroutine(coroutine);
+        }
+
+        public void OnDie()
+        {
+            _isDead = true;
+            _animator.SetBool(IsDeadKey, true);
+            
+            if (_current != null)
+                StopCoroutine(_current);
         }
     }
 }

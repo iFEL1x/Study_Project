@@ -3,7 +3,6 @@ using PixelCrew.Components;
 using PixelCrew.Creatures;
 using PixelCrew.Model;
 using PixelCrew.Utils;
-using UnityEditor;
 using UnityEditor.Animations;
 using UnityEngine;
 
