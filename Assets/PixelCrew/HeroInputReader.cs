@@ -16,6 +16,7 @@ namespace PixelCrew
             _inputAtcions.Hero.HorisontalMovement.canceled += OnHorisontalMovement;
             _inputAtcions.Hero.Interact.canceled += OnInteract;
             _inputAtcions.Hero.Attack.canceled += OnAttack;
+            _inputAtcions.Hero.Throw.performed += OnThrow;
         }
 
         private void OnEnable()
@@ -47,6 +48,14 @@ namespace PixelCrew
             {
                 if (_hero != null)
                     _hero.Attack();
+            }
+        }
+
+        private void OnThrow(InputAction.CallbackContext context)
+        {
+            if (context.performed)
+            {
+                _hero.Throw();
             }
         }
     }

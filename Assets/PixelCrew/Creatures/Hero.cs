@@ -27,6 +27,8 @@ namespace PixelCrew
         [Space] [Header("Particles")]
         [SerializeField] private ParticleSystem _hitCointParticles;
         
+        private static readonly int ThrowKey = Animator.StringToHash("throw");
+        
         private HealthComponent _healthComponent;
         private bool _allowDoubleJump;
         private bool _isOnWall;
@@ -165,6 +167,15 @@ namespace PixelCrew
         private void UpdateHeroWeapon()
         {
             Animator.runtimeAnimatorController = _session.Data.IsArmed ? _armed : _disarmed;
+        }
+
+        public void OnDoThrow()
+        {
+            Particles.Spawn("Throw");
+        }
+        public void Throw()
+        {
+            Animator.SetTrigger(ThrowKey);
         }
     }
 }
