@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4170041010426618439}
   - component: {fileID: 696031166}
   m_Layer: 0
-  m_Name: Door
+  m_Name: StoneDoor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
