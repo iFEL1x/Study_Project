@@ -6,19 +6,19 @@ namespace PixelCrew.Components
 {
     public class SpawnListComponent : MonoBehaviour
     {
-    [SerializeField] private SpawnData[] _spawnres;
+        [SerializeField] private SpawnData[] _spawnres;
 
-    public void Spawn(string id)
-    {
-        var spawner = _spawnres.FirstOrDefault(element => element.Id == id);
-        spawner?.Component.Spawn();
-    }
+        public void Spawn(string id)
+        {
+            var spawner = _spawnres.FirstOrDefault(element => element.Id == id);
+            spawner?.Component.Spawn();
+        }
 
-    [Serializable]
-    public class SpawnData
-    {
-        public string Id;
-        public SpawnComponent Component;
-    }
+        [Serializable]
+        public class SpawnData
+        {
+            public string Id;
+            public SpawnComponent Component;
+        }
     }
 }
