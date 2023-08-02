@@ -15576,10 +15576,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 196238c621cbe5e4fb7291729b4162d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _tag: Player
+  _tag: 
   _layer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 2048
   _action:
     m_PersistentCalls:
       m_Calls:
